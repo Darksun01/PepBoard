@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body{
+            margin: 0px;
+        }
+
+        .fas{
+            font-size: 3rem;
+            margin-right: 30px;
+            margin-left: 30px;
+        }
+
+        .icon-pallet{
+            height: 50px;
+            width: 500px;
+            background-color: grey;
+            margin-left: 300px;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+
+        .red{
+            border:1px solid red;
+            font-size: 14pt;
+            background-color: pink;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+        }
+
+        .green{
+            border: 1px solid green;
+            background-color: lightgreen;
+            font-size: 14pt;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+        }
+
+        .blue{
+            border: 1px solid blue;
+            background-color: lightskyblue;
+            font-size: 14pt;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <h1></h1>
+    <div class="icon-pallet">
+        <i class="fas fa-square"></i>
+        <i class="fas fa-grip-lines-vertical"></i>
+        <div class="red">Red</div>
+        <div class="green">Green</div>
+        <div class="blue">Blue</div>
+    </div>
+    <canvas></canvas>
+
+    
+</body>
+    <script>
+        let iX,iY,fX,fY;
+        let canvasBoard=document.querySelector("canvas");
+        
+        let rectTool=document.querySelector(".fa-square");
+        let lineTool=document.querySelector(".fa-grip-lines-vertical");
+        let body=document.querySelector("body");
+        let boardTop=canvasBoard.getBoundingClientRect().top;
+        let boardLeft=canvasBoard.getBoundingClientRect().left;
+        let cTool="rectTool";
+        canvasBoard.height=window.innerHeight;
+        canvasBoard.width=window.innerWidth;
+        
+        let tool=canvasBoard.getContext("2d");
+        // tool.fillStyle="red";
+        // tool.fillRect(0,0,200,200);
+        // tool.strokeStyle="green";
+        // tool.strokeRect(50,50,200,200);
+        // tool.fillStyle="blue";
+        // tool.fillRect(40,40,100,100);
+
+       
+
+        //tool change logic
+        
+
+        
+      //  console.log(boardLeft);
+     //   console.log(canvasBoard.getBoundingClientRect());     
+ </script>
+  
+  //color change and tool change
+ <script>
+     let redColor=document.querySelector(".red");
+    let greenColor=document.querySelector(".green");
+    let blueColor=document.querySelector(".blue");
+
+    rectTool.addEventListener("click", function()
+    {
+        cTool="rectTool";
+    })
+
+    lineTool.addEventListener("click", function()
+    {
+        cTool="lineTool";
+    })
+
+    redColor.addEventListener("click",function()
+    {
+        tool.strokeStyle="red";
+    })
+
+    greenColor.addEventListener("click",function()
+    {
+        tool.strokeStyle="lightgreen";
+    })
+
+    blueColor.addEventListener("click",function()
+    {
+        tool.strokeStyle="lightskyblue";
+    })
+ </script>
+
+
+// drawing logic
+ <script>
+      body.addEventListener("mousedown",function(e)
+        {
+             iX=e.clientX -boardLeft;
+        //     console.log(iX);
+             iY=e.clientY-boardTop;
+           // console.log(xPos,yPos)
+        })
+
+        body.addEventListener("mouseup",function(e)
+        {
+             fX=e.clientX-boardLeft;
+             fY=e.clientY-boardTop;
+
+            let width=fX-iX;
+            let height=fY-iY;
+            if(cTool=="rectTool"){
+            tool.strokeRect(iX,iY,width,height);
+            }
+            else{
+                tool.beginPath();
+                tool.moveTo(iX,iY);
+                tool.lineTo(fX,fY);
+                tool.stroke();
+            }
+           // console.log(xPos,yPos)
+        })
+
+        body.addEventListener("mousemove",function(e)
+        {
+
+        })
+ </script>
+
+</html>
